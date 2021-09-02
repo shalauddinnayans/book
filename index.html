@@ -14,22 +14,18 @@
     <div class="">
     <h1 class="text-center">Search Your favorite book</h1>
     <div class="input-group mb-3 w-50 mx-auto">
-        <input type="text" class="form-control" placeholder="Enter your favorite book name" aria-label="book name" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-      </div>
+        <input type="text" class="form-control" placeholder="Enter your favorite book name" aria-label="book name" aria-describedby="button-addon2" id="search-field">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="searchBook()">Search</button>
+    </div>
+    <div id="result-status">
+        
+        <p id="found-result"></p>
+        <p>No Result found</p>
+    </div>
     </div>
     
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-          <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-          </div>
-        </div>
+    <div id="search-result" class="row row-cols-1 row-cols-md-3 g-4">
     </div>
 
 
