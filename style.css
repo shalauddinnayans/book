@@ -1,17 +1,21 @@
+/* google font  */
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 html {
   font-family: "Roboto", sans-serif;
 }
+/* search status color  */
 .warning {
   color: red;
 }
 .success {
   color: green;
 }
-
+/* spinner control  */
 #spinner {
   display: none;
 }
+/* search ing sizeing */
 .img-size {
   width: 100%;
   height: 400px;

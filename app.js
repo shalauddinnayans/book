@@ -11,17 +11,19 @@ const sharchStatus= (statusInfo, colorSing) =>{
 
 
 // function for  spinner control 
-const toggleSpinner= style=>{
-    document.getElementById('spinner').style.display= style;
+const toggleSpinner= (spinnerStyle, contentStyle )=>{
+    document.getElementById('spinner').style.display= spinnerStyle;
+    document.getElementById('result-status').style.display= contentStyle;
+    document.getElementById('search-result').style.display= contentStyle;
 }
 
-
+// function for get text and api data
 const searchBook=() =>{
     // get search text 
     const searchField = document.getElementById('search-field');
     const searchText= searchField.value;
 
-    toggleSpinner('block')
+    toggleSpinner('block', 'none')
     // remove field text 
     searchField.value= '';
     // show empty status  
@@ -36,12 +38,12 @@ const searchBook=() =>{
     }
 }
 
-
+// function for display data
 const displaySearchResult= book=>{
     // show not found status
     if(book.numFound === 0){
         sharchStatus('❌ No result found', 'warning')
-        toggleSpinner('none')
+        toggleSpinner('none', 'flex')
     }
     else{
         sharchStatus(`✌ ${book.numFound} Result found`, 'success')
@@ -68,6 +70,6 @@ const displaySearchResult= book=>{
     
     });
     // stop spinner 
-    toggleSpinner('none')
+    toggleSpinner('none', 'flex')
 }
 }
