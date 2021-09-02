@@ -54,13 +54,13 @@ const displaySearchResult= book=>{
         const div= document.createElement('div');
         div.classList.add('col');
         div.innerHTML= `
-        <div class="card h-100">
-            <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg" class="card-img-top img-50" alt="...">
+        <div class="card h-100 bg-primary">
+            <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg" class="img-size card-img-top img-50" alt="...">
             <div class="card-body">
-              <h5 class="card-title fw-bolder">${book.title}</h5>
-              <h5><span class="fw-bold">Author</span> – ${book.author_name ? book.author_name: ''}</h5>
-              <h5><span class="fw-bold">Publisher</span> – ${book.publisher_facet} </h5>
-              <h5><span class="fw-bold">First Publish</span> – ${book.first_publish_year}</h5>
+              <h5 class="text-white card-title fw-bolder">${book.title}</h5>
+              <h5 class="text-white"><span class="fw-bold">Author</span> – ${book.author_name ? book.author_name: ''}</h5>
+              <h5 class="text-white"><span class="fw-bold">Publisher</span> – ${book.publisher_facet} </h5>
+              <h5 class="text-white"><span class="fw-bold">First Publish</span> – ${book.first_publish_year}</h5>
             </div>
         </div>
         `;
