@@ -2,33 +2,44 @@ const searchBook=() =>{
     const searchField = document.getElementById('search-field');
     const searchText= searchField.value;
     searchField.value= '';
+    if(searchText == ''){
+    const resultStatus= document.getElementById('result-status')
+    resultStatus.innerHTML= '';
+    const p= document.createElement('p')
+    p.classList.add('warning');
+    p.innerText='❌ Enter any book name';
+    resultStatus.appendChild(p);
+    }
+    else{
     const url=`https://openlibrary.org/search.json?q=${searchText}`;
-
-
     fetch(url)
     .then(res => res.json())
-    .then(data=> displaySearchResult(data.docs))
+    .then(data=> displaySearchResult(data))
+    }
 }
 
-// const showResultStatus=num=>{
-//     const resultStatus= document.getElementById('result-status')
-//     const p= document.createElement('p')
-//     p.innerText=`${num.numFound}No Result found
-//     `
-//     resultStatus.appendChild(p);
-// }
-
-
-
-
 const displaySearchResult= book=>{
+
+    if(book.numFound === 0){
     const resultStatus= document.getElementById('result-status')
+    resultStatus.innerHTML= '';
     const p= document.createElement('p')
-    p.innerText=`${book.numFound}No Result found
-    `
+    p.classList.add('warning');
+    p.innerText='❌ No result found';
+    resultStatus.appendChild(p);
+    }
+    else{
+    const resultStatus= document.getElementById('result-status')
+    resultStatus.innerHTML= '';
+    const p= document.createElement('p')
+    p.classList.add('success');
+    p.innerText=`✌ ${book.numFound} Result found
+    `;
     resultStatus.appendChild(p);
     const seacrchResult= document.getElementById('search-result');
-    book.forEach(book => {
+    seacrchResult.innerText= '';
+
+    book.docs.forEach(book => {
         const div= document.createElement('div');
         div.classList.add('col');
         div.innerHTML= `
@@ -43,5 +54,7 @@ const displaySearchResult= book=>{
         </div>
         `;
         seacrchResult.appendChild(div);
+    
     });
+}
 }
