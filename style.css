@@ -4,3 +4,7 @@
 .success {
   color: green;
 }
+
+#spinner {
+  display: none;
+}

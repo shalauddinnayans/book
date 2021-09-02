@@ -1,14 +1,32 @@
-const searchBook=() =>{
-    const searchField = document.getElementById('search-field');
-    const searchText= searchField.value;
-    searchField.value= '';
-    if(searchText == ''){
+// function for show search status 
+const sharchStatus= (statusInfo, colorSing) =>{
     const resultStatus= document.getElementById('result-status')
+    // remove previous status
     resultStatus.innerHTML= '';
     const p= document.createElement('p')
-    p.classList.add('warning');
-    p.innerText='❌ Enter any book name';
+    p.classList.add(colorSing);
+    p.innerText= statusInfo;
     resultStatus.appendChild(p);
+}
+
+
+// function for  spinner control 
+const toggleSpinner= style=>{
+    document.getElementById('spinner').style.display= style;
+}
+
+
+const searchBook=() =>{
+    // get search text 
+    const searchField = document.getElementById('search-field');
+    const searchText= searchField.value;
+
+    toggleSpinner('block')
+    // remove field text 
+    searchField.value= '';
+    // show empty status  
+    if(searchText === ''){
+        sharchStatus('❌ Enter any book name', 'warning')
     }
     else{
     const url=`https://openlibrary.org/search.json?q=${searchText}`;
@@ -18,25 +36,18 @@ const searchBook=() =>{
     }
 }
 
-const displaySearchResult= book=>{
 
+const displaySearchResult= book=>{
+    // show not found status
     if(book.numFound === 0){
-    const resultStatus= document.getElementById('result-status')
-    resultStatus.innerHTML= '';
-    const p= document.createElement('p')
-    p.classList.add('warning');
-    p.innerText='❌ No result found';
-    resultStatus.appendChild(p);
+        sharchStatus('❌ No result found', 'warning')
+        toggleSpinner('none')
     }
     else{
-    const resultStatus= document.getElementById('result-status')
-    resultStatus.innerHTML= '';
-    const p= document.createElement('p')
-    p.classList.add('success');
-    p.innerText=`✌ ${book.numFound} Result found
-    `;
-    resultStatus.appendChild(p);
+        sharchStatus(`✌ ${book.numFound} Result found`, 'success')
+    // show api content 
     const seacrchResult= document.getElementById('search-result');
+    // remove previous result 
     seacrchResult.innerText= '';
 
     book.docs.forEach(book => {
@@ -44,17 +55,19 @@ const displaySearchResult= book=>{
         div.classList.add('col');
         div.innerHTML= `
         <div class="card h-100">
-            <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg" class="card-img-top" alt="...">
+            <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg" class="card-img-top img-50" alt="...">
             <div class="card-body">
-              <h5 class="card-title">${book.title}</h5>
-              <h5 class="card-title">Author – ${book.author_name[0]}</h5>
-              <h5 class="card-title">Publisher – ${book.publisher_facet} </h5>
-              <h5 class="card-title">Frist Publish – ${book.first_publish_year}  </h5>
+              <h5 class="card-title fw-bolder">${book.title}</h5>
+              <h5><span class="fw-bold">Author</span> – ${book.author_name ? book.author_name: ''}</h5>
+              <h5><span class="fw-bold">Publisher</span> – ${book.publisher_facet} </h5>
+              <h5><span class="fw-bold">First Publish</span> – ${book.first_publish_year}</h5>
             </div>
         </div>
         `;
         seacrchResult.appendChild(div);
     
     });
+    // stop spinner 
+    toggleSpinner('none')
 }
 }
